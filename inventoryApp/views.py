@@ -4,7 +4,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 import json, sys
-
+from datetime import date, datetime
+from .models import Category, Products
 # Create your views here.
 
 # Login
@@ -29,4 +30,11 @@ def logout_user(request):
 
 @login_required
 def home(request):
-    return render(request, 'base.html')
+    now = datetime.now()
+    categories = len(Category.objects.all())
+    products = len(Products.objects.all())
+    context = {
+        'categories' : categories,
+        'products' : products,
+    }
+    return render(request, 'home.html', context)

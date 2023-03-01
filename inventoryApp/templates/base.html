@@ -15,8 +15,7 @@
   <link rel="stylesheet" href="{% static 'inventoryApp/css/mdb.min.css' %}" />
   <!-- Custom styles -->
   <link rel="stylesheet" href="{% static 'inventoryApp/css/admin.css' %}" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
-    crossorigin="anonymous"></script>
+
   <!-- New Styles and Links -->
   <link rel="stylesheet" href="{% static 'inventoryApp/bootstrap/css/bootstrap.min.css' %}">
 
@@ -31,10 +30,10 @@
   <!-- Layout styles -->
   <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/css/demo/style.css' %}">
   <link rel="stylesheet" href="{% static 'inventoryApp/select2/dist/css/select2.min.css' %}">
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"> -->
+
   <link rel="stylesheet" href="{% static 'inventoryApp/default/css/style.css' %}">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="{% static 'inventoryApp/material-admin/images/favicon.png' %}" />
+  <link rel="shortcut icon" href="{% static 'inventoryApp/img/logo.png' %}" />
   <script src="{% static 'inventoryApp/default/js/jquery-3.6.0.min.js' %}">
   </script>
   <script src="{% static 'inventoryApp/bootstrap/js/bootstrap.min.js' %}"></script>
@@ -49,10 +48,10 @@
     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
       <div class="position-sticky">
         <div class="list-group list-group-flush mx-3 mt-4">
-          <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple active" aria-current="true">
             <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
           </a>
-          <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple {% if request.endpoint == 'myappointments' %}active{% endif %}">
             <i class="fas fa-chart-area fa-fw me-3"></i><span>Category List</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
@@ -117,7 +116,11 @@
   <!--Main Navigation-->
 
   <!--Main layout-->
-  {% block main %}{% endblock %}
+  <main style="margin-top: 60px">
+    <div class="container pt-4">
+      {% block main %}{% endblock %}
+    </div>
+  </main>
   <!--Main layout-->
   <!-- MDB -->
   <script type="text/javascript" src="{% static 'inventoryApp/js/mdb.min.js' %}"></script>
