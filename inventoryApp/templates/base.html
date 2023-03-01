@@ -17,6 +17,29 @@
   <link rel="stylesheet" href="{% static 'inventoryApp/css/admin.css' %}" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw=="
     crossorigin="anonymous"></script>
+  <!-- New Styles and Links -->
+  <link rel="stylesheet" href="{% static 'inventoryApp/bootstrap/css/bootstrap.min.css' %}">
+
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/vendors/css/vendor.bundle.base.css' %}">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/vendors/flag-icon-css/css/flag-icon.min.css' %}">
+  <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/vendors/jvectormap/jquery-jvectormap.css' %}">
+  <!-- End plugin css for this page -->
+  <!-- Layout styles -->
+  <link rel="stylesheet" href="{% static 'inventoryApp/material-admin/css/demo/style.css' %}">
+  <link rel="stylesheet" href="{% static 'inventoryApp/select2/dist/css/select2.min.css' %}">
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"> -->
+  <link rel="stylesheet" href="{% static 'inventoryApp/default/css/style.css' %}">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="{% static 'inventoryApp/material-admin/images/favicon.png' %}" />
+  <script src="{% static 'inventoryApp/default/js/jquery-3.6.0.min.js' %}">
+  </script>
+  <script src="{% static 'inventoryApp/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'inventoryApp/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'inventoryApp/bootstrap/js/popper.min.js' %}"></script>
 </head>
 
 <body>
@@ -30,12 +53,12 @@
             <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Main dashboard</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
-            <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic </span>
+            <i class="fas fa-chart-area fa-fw me-3"></i><span>Category List</span>
           </a>
           <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-              class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
-          <a href="#" class="list-group-item list-group-item-action py-2 ripple"><i
-              class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a>
+              class="fas fa-chart-line fa-fw me-3"></i><span>Product List</span></a>
+          <a href="/logout" class="list-group-item list-group-item-action py-2 ripple"><i
+              class="fas fa-lock fa-fw me-3"></i><span>Logout</span></a>
         </div>
       </div>
     </nav>
@@ -100,6 +123,56 @@
   <script type="text/javascript" src="{% static 'inventoryApp/js/mdb.min.js' %}"></script>
   <!-- Custom scripts -->
   <script type="text/javascript" src="{% static 'inventoryApp/js/admin.js' %}"></script>
+
+  <script src="{% static 'inventoryApp/material-admin/vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'inventoryApp/material-admin/js/material.js' %}"></script>
+  <script src="{% static 'inventoryApp/material-admin/js/misc.js' %}"></script>
+  <script src="{% static 'inventoryApp/material-admin/js/dashboard.js' %}"></script>
+  <script src="{% static 'inventoryApp/select2/dist/js/select2.full.js' %}"></script>
+  <script>
+    window.start_loader = function() {
+        $('body').removeClass('loaded')
+    }
+    window.end_loader = function() {
+        $('body').addClass('loaded')
+    }
+    window.uni_modal = function($title = '', $url = '', $size = "") {
+        start_loader()
+        $.ajax({
+            url: $url,
+            error: err => {
+                console.log()
+                alert("An error occured")
+            },
+            success: function(resp) {
+                if (resp) {
+                    $('#uni_modal .modal-title').html($title)
+                    $('#uni_modal .modal-body').html(resp)
+                    if ($size != '') {
+                        $('#uni_modal .modal-dialog').addClass($size + '  modal-dialog-centered')
+                    } else {
+                        $('#uni_modal .modal-dialog').removeAttr("class").addClass("modal-dialog modal-md modal-dialog-centered")
+                    }
+                    $('#uni_modal').modal({
+                        backdrop: 'static',
+                        keyboard: false,
+                        focus: true
+                    })
+                    $('#uni_modal').modal('show')
+                    end_loader()
+                }
+            }
+        })
+    }
+    window._conf = function($msg = '', $func = '', $params = []) {
+        $('#confirm_modal #confirm').attr('onclick', $func + "(" + $params.join(',') + ")")
+        $('#confirm_modal .modal-body').html($msg)
+        $('#confirm_modal').modal('show')
+    }
+    $(function() {
+
+    })
+</script>
 
 </body>
 
