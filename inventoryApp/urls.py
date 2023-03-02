@@ -10,4 +10,5 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view(template_name = 'login.html',redirect_authenticated_user=True), name="login"),
     path('userlogin', views.login_user, name="login-user"),
     path('logout', views.logout_user, name="logout"),
+    path('category', views.category, name='category-page'),
 ]

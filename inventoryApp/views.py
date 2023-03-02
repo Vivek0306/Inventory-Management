@@ -38,3 +38,13 @@ def home(request):
         'products' : products,
     }
     return render(request, 'home.html', context)
+
+#  Categories
+@login_required
+def category(request):
+    category_list = Category.objects.all()
+    context = {
+        'page_title' : 'Category List',
+        'category' : category_list,
+    }
+    return render(request, 'category.html', context)
