@@ -58,3 +58,20 @@
     </div>
 </div>
 {% endblock main %}
+{% block scriptBlock %}
+<script>
+    $(function() {
+        $('#create_new').click(function() {
+            uni_modal("Add New Category", "{% url 'manage_category-page' %}")
+        })
+        $('.edit-data').click(function() {
+            uni_modal("Edit Category", "{% url 'manage_category-page' %}?id=" + $(this).attr('data-id'))
+        })
+        $('.delete-data').click(function() {
+            _conf("Are you sure to delete this Category?", "delete_category", [$(this).attr('data-id')])
+        })
+    })
+
+    
+</script>
+{% endblock scriptBlock %}

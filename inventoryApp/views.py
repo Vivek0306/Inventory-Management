@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 import json, sys
 from datetime import date, datetime
@@ -48,3 +49,47 @@ def category(request):
         'category' : category_list,
     }
     return render(request, 'category.html', context)
+
+@login_required
+def manage_category(request):
+    category = {}
+    if request.method == 'GET':
+        data =  request.GET
+        id = ''
+        if 'id' in data:
+            id= data['id']
+        if id.isnumeric() and int(id) > 0:
+            category = Category.objects.filter(id=id).first()
+    
+    context = {
+        'category' : category
+    }
+    return render(request, 'manage_category.html',context)
+
+@login_required
+def save_category(request):
+    data =  request.POST
+    resp = {'status':'failed'}
+    try:
+        if (data['id']).isnumeric() and int(data['id']) > 0 :
+            save_category = Category.objects.filter(id = data['id']).update(name=data['name'], description = data['description'],status = data['status'])
+        else:
+            save_category = Category(name=data['name'], description = data['description'],status = data['status'])
+            save_category.save()
+        resp['status'] = 'success'
+        messages.success(request, 'Category Successfully saved.')
+    except:
+        resp['status'] = 'failed'
+    return HttpResponse(json.dumps(resp), content_type="application/json")
+
+@login_required
+def delete_category(request):
+    data =  request.POST
+    resp = {'status':''}
+    try:
+        Category.objects.filter(id = data['id']).delete()
+        resp['status'] = 'success'
+        messages.success(request, 'Category Successfully deleted.')
+    except:
+        resp['status'] = 'failed'
+    return HttpResponse(json.dumps(resp), content_type="application/json")
